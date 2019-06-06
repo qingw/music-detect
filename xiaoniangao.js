@@ -1,14 +1,12 @@
 const axios = require('axios')
 const fs = require('fs')
-let count = 15
+let count = 0
 
 fs.readFile('./taihe.json', 'utf8', function (err, data) {
     if (err) throw err
     const infoArr = JSON.parse(data)
     infoArr.forEach((el, index) => {
-        if (index >= 1000 && index < 2000) {
-            detect(el['artist'], el['song'])
-        }
+        detect(el['artist'], el['song'])
     })
 })
 
@@ -27,9 +25,6 @@ async function detect(artist, song) {
         const list = res.data.data.list
         if (list[0]['music']['name'].indexOf(song) !== -1 && list[0]['music']['singer'].indexOf(artist) !== -1) {
             console.log(`【${++count}】${artist} - ${song}`)
-            // hitHaidie.push({
-            //     artist,song
-            // })
         }
     }
 }
