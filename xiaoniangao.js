@@ -2,14 +2,14 @@ const axios = require('axios')
 const fs = require('fs')
 let count = 0
 
-fs.readFile('./parse/天狼.json', 'utf8', function (err, data) {
+fs.readFile('./parse/合众.json', 'utf8', function (err, data) {
     if (err) throw err
     const infoArr = JSON.parse(data)
     // console.log(infoArr)
     infoArr.forEach((el, index) => {
-        // if (index < 50000) {
+        if (index >= 110000 && index < 120000) {
             detect(el['artist'], el['song'])
-        // }
+        }
     })
 })
 
