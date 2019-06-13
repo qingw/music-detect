@@ -2,7 +2,7 @@ const axios = require('axios')
 const fs = require('fs')
 let count = 0
 
-fs.readFile('./taihe.json', 'utf8', function (err, data) {
+fs.readFile('./parse/合众.json', 'utf8', function (err, data) {
     if (err) throw err
     const infoArr = JSON.parse(data)
     infoArr.forEach((el, index) => {
@@ -10,22 +10,25 @@ fs.readFile('./taihe.json', 'utf8', function (err, data) {
     })
 })
 
-async function detect(artist, song) { 
+async function detect(artist, song) {
     let res = await axios.post('https://api.xiaoniangao.cn/plp/searchall', {
+        "token": "39bc56ad2cf446f28e94aa3c1df31951",
         "txt": song,
         "offset": 0,
-        "limit": 50,
-        "token": "551a07468884ee39a00f87df2d7a507c",
-        "uid": "832daf83-1c2d-4966-a325-78b06b397069",
-        "proj": "ma",
-        "wx_ver": "7.0.4",
-        "code_ver": "1.13.0"
+        "limit": 30,
+        "code_ver": "5.8.20",
+        "uid": "5277c4ec-4ee1-473a-8929-41d817d57eca",
+        "proj": "in"
     })
     if (res.data.data && res.data.data.list.length > 0) {
         const list = res.data.data.list
-        if (list[0]['music']['name'].indexOf(song) !== -1 && list[0]['music']['singer'].indexOf(artist) !== -1) {
-            console.log(`【${++count}】${artist} - ${song}`)
+        for (let i = 0; i < 100; i++) {
+            if (list[i] && list[i]['music']['name'].indexOf(song) !== -1 && list[i]['music']['singer'].indexOf(artist) !== -1) {
+                console.log(`${artist} - ${song}`)
+                // return `${artist} - ${song}`
+            }
         }
+        
     }
 }
 

@@ -5,23 +5,21 @@
 
 const XLSX = require('xlsx')
 const fs = require('fs')
-const workbook = XLSX.readFile('../all.xlsx')
+const workbook = XLSX.readFile('../hezhong.xlsx')
 const SheetNamesArr = workbook.SheetNames
 
 console.log(SheetNamesArr)
 
-let sheetIndex = 11
+let sheetIndex = 0
 
 let sheet = workbook.Sheets[SheetNamesArr[sheetIndex]]
 let sheetMap = []
 
 let i = 2
-while (sheet[`C${i}`]) {
-    console.log(i)
-    console.log(sheet[`D${i}`])
+while (sheet[`F${i}`]) {
     sheetMap.push({
         artist: sheet[`D${i}`]['v'],
-        song: sheet[`C${i}`]['v']
+        song: sheet[`F${i}`]['v']
     })
     i++
 }
